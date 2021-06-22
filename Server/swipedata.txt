@@ -1,0 +1,6 @@
+melody1:False
+melody1:True
+melody1:True
+melody2:True
+melody1:True
+melody2:True
