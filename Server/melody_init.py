@@ -3,7 +3,7 @@ import mai # for writing lists to midi files. In the future I can use pretty_mid
 import pickle # for data persistence
 
 start = 1 # Start melody index at 1
-stop = start + 4 # Only make 4 melodies
+stop = start + 10 # Only make 10 melodies
 melody_list = []
 
 # Generate the melodies
