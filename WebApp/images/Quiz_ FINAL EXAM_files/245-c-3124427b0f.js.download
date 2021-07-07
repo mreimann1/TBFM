@@ -1,0 +1,44 @@
+(window["canvasWebpackJsonp"]=window["canvasWebpackJsonp"]||[]).push([[245],{DiQt:function(e,t,a){"use strict"
+a.r(t)
+a.d(t,"LtiToolsModal",(function(){return T}))
+var n=a("ODXe")
+var i=a("q1tI")
+var r=a.n(i)
+var l=a("17x9")
+var s=a("01yy")
+var o=a("f0TT")
+var c=a("I4Df")
+var m=a("cW++")
+var d=a("84ty")
+var u=a("l0Pw")
+var p=a("cY3j")
+var b=a("UUvk")
+var g=a("CMdt")
+var v=a("gj0F")
+var h=a("NFDp")
+var f=a("sXKM")
+var E=a("/7Jz")
+function O(e){const t=Object(i["useState"])(false),a=Object(n["a"])(t,2),l=a[0],s=a[1]
+const o=Object(i["useState"])(false),c=Object(n["a"])(o,2),m=c[0],d=c[1]
+const p=e.text,b=e.title
+const g=l?Object(h["a"])("Hide {title} description",{title:b}):Object(h["a"])("View {title} description",{title:b})
+return r.a.createElement(r.a.Fragment,null,r.a.createElement(u["a"],{as:"button",background:"transparent",display:"block",borderWidth:"none",textAlign:"start",type:"button",position:"relative",padding:"none none none xx-small","aria-expanded":l,borderRadius:"medium",focused:m,onClick:()=>{s(!l)},onFocus:()=>d(true),onBlur:()=>d(false)},r.a.createElement(u["a"],{as:"span","aria-live":"assertive","aria-relevant":"text"},r.a.createElement(f["a"],{color:"brand",size:"x-small","aria-label":g},l?Object(h["a"])("Hide description"):Object(h["a"])("View description")))),l&&r.a.createElement(u["a"],{as:"span",margin:"small none none xx-small",display:"block",minWidth:"10rem",role:"presentation"},r.a.createElement(f["a"],{as:"span",color:"secondary"},r.a.createElement("div",{className:Object(E["css"])(j.descriptionText),dangerouslySetInnerHTML:{__html:p}}))))}O.propTypes={text:l["string"].isRequired,title:l["string"].isRequired}
+const j=E["StyleSheet"].create({descriptionText:{lineHeight:"1.2rem",p:{margin:"1rem 0"},":nth-child(1n)> :first-child":{marginTop:"0",display:"inline-block"},":nth-child(1n)> :last-child":{marginBottom:"0"}}})
+function x(e){const t=Object(i["useState"])(false),a=Object(n["a"])(t,2),l=a[0],s=a[1]
+const o=e.title,c=e.image,m=e.description,d=e.onAction
+return r.a.createElement(r.a.Fragment,null,r.a.createElement(u["a"],{as:"span",focused:l,className:Object(E["css"])(y.appButton),padding:"xxx-small xxx-small xx-small",borderRadius:"medium",role:"button",position:"relative",onClick:()=>{d()},onKeyDown:e=>{13!==e.keyCode&&32!==e.keyCode||d()},onFocus:()=>s(true),onBlur:()=>s(false),tabIndex:"0"},r.a.createElement("span",null,r.a.createElement("img",{src:c,width:"28",height:"28",alt:""})),r.a.createElement(u["a"],{as:"span",className:Object(E["css"])(y.appTitle),margin:"none none none small"},r.a.createElement(f["a"],{"aria-label":Object(h["a"])("Open {title} application",{title:o}),weight:"bold"},o))),m&&(p=m,r.a.createElement(u["a"],{as:"span",margin:"none none none large",display:"block"},r.a.createElement(O,{text:p,title:o}))))
+var p}x.propTypes={title:l["string"].isRequired,image:l["string"].isRequired,onAction:l["func"].isRequired,description:l["string"]}
+const y=E["StyleSheet"].create({appTitle:{verticalAlign:"middle"},appButton:{cursor:"pointer"}})
+const k=()=>document.getElementById("flash_screenreader_holder")
+const R=(e,t)=>{if(e.length<=0)return t
+const a=e?new RegExp(e,"i"):null
+return t.filter(e=>a&&a.test(e.title))}
+function T(e){const t=Object(i["useState"])(""),a=Object(n["a"])(t,2),l=a[0],f=a[1]
+const E=Object(i["useState"])(e.ltiButtons),O=Object(n["a"])(E,2),j=O[0],y=O[1]
+const T=j.length<=0
+return r.a.createElement(s["a"],{"data-mce-component":true,liveRegion:k,size:"medium",theme:{mediumMaxWidth:"42rem"},label:Object(h["a"])("Apps"),onDismiss:e.onDismiss,open:true,shouldCloseOnDocumentClick:true},r.a.createElement(s["a"].Header,{theme:{padding:"0.5rem"}},r.a.createElement(o["a"],{placement:"end",offset:"medium",onClick:e.onDismiss},Object(h["a"])("Close")),r.a.createElement(m["a"],{margin:"small"},Object(h["a"])("All Apps")),r.a.createElement(u["a"],{as:"div",padding:"x-small none x-small medium"},r.a.createElement(b["a"],{type:"search",placeholder:Object(h["a"])("Search"),renderAfterInput:r.a.createElement(g["a"],{inline:false}),onChange:t=>{f(t.target.value)
+y(R(t.target.value,e.ltiButtons))}}))),r.a.createElement(s["a"].Body,{overflow:"fit"},r.a.createElement(p["a"],{as:"div",direction:"column"},r.a.createElement(p["a"].Item,{as:"div",shouldShrink:true,shouldGrow:true},r.a.createElement(v["a"],{liveRegion:k,variant:"info",screenReaderOnly:!T},T&&Object(h["a"])("No results found for {filterTerm}",{filterTerm:l}),!T&&Object(h["a"])("Found { count, plural,\n              =0 {# results}\n              one {# result}\n              other {# results}\n            }",{count:j.length})),(w=j,r.a.createElement(d["a"],{variant:"unstyled"},w.sort((e,t)=>e.title.localeCompare(t.title)).map(t=>r.a.createElement(d["a"].Item,{key:t.id},r.a.createElement(u["a"],{as:"div",padding:"medium medium small none"},r.a.createElement(x,{title:t.title,image:t.image,onAction:()=>{t.onAction()
+e.onDismiss()},description:t.description}))))))))),r.a.createElement(s["a"].Footer,null,r.a.createElement(c["a"],{onClick:e.onDismiss,color:"primary"},Object(h["a"])("Done"))))
+var w}T.propTypes={ltiButtons:Object(l["arrayOf"])(Object(l["shape"])({description:l["string"].isRequired,id:Object(l["oneOfType"])([l["string"],l["number"]]).isRequired,image:l["string"].isRequired,onAction:l["func"].isRequired,title:l["string"].isRequired})),onDismiss:l["func"].isRequired}}}])
+
+//# sourceMappingURL=245-c-3124427b0f.js.map
