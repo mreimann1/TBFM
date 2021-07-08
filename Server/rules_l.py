@@ -31,3 +31,8 @@ def rule6 (new_note, melody, dflag=False):
   # no more than one successive repeat of a given note
   if (dflag): print("no more than one successive repeat of a given note")
   return (len(melody) < 2 or not (new_note == melody[-2] == melody[-1]))
+
+# last note must be same as first
+# def rule7 (new_note, melody, dflag=False):
+#   # 
+#   return (new_note == melody[0] || len(melody))

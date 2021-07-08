@@ -14,6 +14,8 @@ class Rule:
     self.likes += 1
   def rghtswipe(self):
     self.dislikes += 1
+  def __str__(self):
+    return f"likes: {self.likes}\tdislikes: {self.dislikes}\tdesirability: {self.desirability()}"
 
 # List of Rules which can be selected for Melody instances
 rules = [Rule(rule1),
@@ -22,6 +24,13 @@ rules = [Rule(rule1),
          Rule(rule4),
          Rule(rule5),
          Rule(rule6)]
+
+# Function for dumping rules to a file
+def dump_rules(filename):
+  for i in range(0,len(rules)):
+    f = open(filename, "a")
+    f.write(f"Rule{i}: {rules[i]}\n")
+    f.close()
 
 # Define a Melody Object
 class Melody:

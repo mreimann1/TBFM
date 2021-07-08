@@ -20,3 +20,6 @@ for i in range(0, stop-start):
 pickle_out = open("melodies.dat", "wb")
 pickle.dump(melody_list, pickle_out)
 pickle_out.close()
+
+# Dump desirability scores to score_dump.txt
+dump_rules("score_dump.txt")
