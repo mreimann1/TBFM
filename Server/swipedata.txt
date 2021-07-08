@@ -58,3 +58,14 @@ melody2:True
 melody3:True
 melody4:False
 melody1:True
+melody1:True
+melody2:True
+melody3:False
+melody2:True
+melody3:False
+melody2:True
+melody1:False
+melody10:True
+melody1:True
+melody2:True
+melody3:True
