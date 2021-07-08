@@ -16,11 +16,11 @@
       <ul class="cardlist" id="list-of-cards">
         <li class="card current">
           <midi-player id= "melody-player curr-player" src="" sound-font></midi-player>
-          <img src="images/melody_image4.PNG" alt="">
+          <img src="images/melody_image4.png" alt="">
         </li> get
         <li class="card next">
           <midi-player id= "melody-player next-player" src="" sound-font></midi-player>
-          <img src="images/melody_image4.PNG" alt="">
+          <img src="images/melody_image4.png" alt="">
         </li>
       </ul>
       <br>
@@ -62,7 +62,7 @@
 
   const MAX_M_INDEX = 10;
   var melodyIndex = 1;
-  var melodySourc = "http://localhost:8000/"
+  var melodySourc = "http://sozopol.soe.ucsc.edu:8000/"
   function melody_name (altindex = melodyIndex) {return melodySourc + "melody" + altindex + ".mid"}
   
   console.log ("currcard: " + currcard + " nextcard: " + nextcard);
@@ -86,7 +86,7 @@
     cardlist.innerHTML += `
     <li class="card next">
           <midi-player id= "melody-player next-player" src="${melody_name(melodyIndex+1)}" sound-font></midi-player>
-          <img src="images/melody_image4.PNG" alt="">
+          <img src="images/melody_image4.png" alt="">
     </li>`;
   }
 
@@ -122,7 +122,7 @@
       redirect: 'follow'
     };
 
-    fetch("http://localhost:8000/melody"+(melodyIndex)+".mid?swiped="+(result?"true":"false"), requestOptions)
+    fetch((melodySourc)+"melody"+(melodyIndex)+".mid?swiped="+(result?"true":"false"), requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
