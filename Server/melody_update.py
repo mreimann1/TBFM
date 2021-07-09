@@ -32,6 +32,10 @@ with open(filename) as swipedata:
             print(f"passed on line: {line}")
             pass # ignore bad indices and more
 
+# Clear the swipedata
+with open(filename, 'r+') as f:
+    f.truncate(0)
+
 # Dump desirability scores to score_dump.txt
 for i in range(0,len(melody_list[0].rules)):
     f = open("score_dump.txt", "a")
