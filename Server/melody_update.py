@@ -13,6 +13,8 @@ pickle_in = open("rules.dat", "rb")
 rules = pickle.load(pickle_in)
 pickle_in.close()
 
+
+
 # Load swipe data
 filename = "swipedata.txt"
 with open(filename) as swipedata:
@@ -23,20 +25,22 @@ with open(filename) as swipedata:
         response = bool(re.search("True",line[colon_index+1:]))
         melody_index = int(re.search(r'\d+$', melody_name).group())
 
-        # print (f"melody_name: {melody_name} index: {melody_index} swipe response: {response}\n") #TODO: Add flag parsing
-
         # Try to swipe the melody, passing on exceptions
         try:
             melody_list[melody_index].handle_response(response)
         except Exception:
+            print(f"passed on line: {line}")
             pass # ignore bad indices and more
 
 # Dump desirability scores to score_dump.txt
-rules.dump_rules("score_dump.txt")
+for i in range(0,len(melody_list[0].rules)):
+    f = open("score_dump.txt", "a")
+    f.write(f"Rule{i}: {melody_list[0].rules[i]}\n")
+    f.close()
 
 # Generate new set of melodies
 for melody in melody_list:
-    melody.generate_notes(rules.rules)
+    melody.generate_notes()
     my_melody = melody.notes
     midi_file = mai.make_music(my_melody, pgm=1, format='MIDI')\
                 .write('melody' + str(melody.index) + '.mid')

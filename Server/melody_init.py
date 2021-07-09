@@ -11,8 +11,8 @@ rules = Rules()
 
 # Generate the melodies
 for i in range(start, stop):
-    melody = Melody(i)
-    melody.generate_notes(rules.rules)
+    melody = Melody(i, rules.rules)
+    melody.generate_notes()
     melody_list += [melody]
 # Print them to .mid files
 for i in range(0, stop-start):

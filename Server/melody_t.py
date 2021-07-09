@@ -39,11 +39,13 @@ class Rules:
 
 # Define a Melody Object
 class Melody:
-  def __init__(self, index, rules_list=[]) :
+  def __init__(self, index, rules_super) : #rules_super is the superset of rules
     self.notes = []
-    self.rules_list = rules_list
+    self.rules_list = []
     self.index = index
     self.midi_path = ""
+    self.rules = rules_super
+
   def print_rules(self, message="", and_desirability=False): # message added to help debug
     for rule in self.rules_list:
       print("rule:")
@@ -52,11 +54,11 @@ class Melody:
       if and_desirability:
         print(f"has desirability: {rule.desirability()}")
 
-  def generate_notes(self, rules) :
+  def generate_notes(self) :
     # Choose some rules
     num_rules = random.randint(3,5)
     self.rules_list = []
-    self.rules_list = random.choices(rules, weights = [i.desirability() for i in rules], k=num_rules)
+    self.rules_list = random.choices(self.rules, weights = [i.desirability() for i in self.rules], k=num_rules)
     # Use rules
     # loop until we have 12 notes
     while len(self.notes) < 12:
@@ -70,17 +72,22 @@ class Melody:
       if all(note_results):
         self.notes += [new_note]
 
-  def handle_leftswipe(self) :
+  def handle_leftswipe(self, dflag=False) :
+    if dflag: 
+      print(f"Melody{self.index} was leftswiped")
+      print(self.rules_list)
     for rule in self.rules_list:
-        rule.leftswipe()
+        rule.leftswipe(dflag)
 
-  def handle_rghtswipe(self) :
+  def handle_rghtswipe(self, dflag=False) :
+    if dflag: 
+      print(f"Melody{self.index} was rghtswiped... before:")
+      print(r.rules for r in self.rules_list)
     for rule in self.rules_list:
-        rule.rghtswipe()
+        rule.rghtswipe(dflag)
+    if dflag: 
+      print(f"after: ")
+      print(r for r in self.rules_list)
     
   def handle_response(self, liked, dflag=False) :
-    if dflag:
-      self.print_rules("was "+("liked" if liked else "disliked")+" the desirability of rules is as follows: ")
-      for rule in rules:
-        print(rule.desirability())
-    self.handle_rghtswipe() if liked else self.handle_leftswipe()
+    self.handle_rghtswipe(dflag) if liked else self.handle_leftswipe()
