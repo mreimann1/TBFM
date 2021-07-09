@@ -1,6 +1,7 @@
 # import
 import random
 from rules_l import *
+from var_defs import *
 
 # Rule Object
 class Rule:
@@ -29,7 +30,8 @@ class Rules:
             Rule(rule3),
             Rule(rule4),
             Rule(rule5),
-            Rule(rule6)]
+            Rule(rule6),
+            Rule(rule7)]
   # Function for dumping rules to a file
   def dump_rules(self, filename):
     for i in range(0,len(self.rules)):
@@ -60,8 +62,8 @@ class Melody:
     self.rules_list = []
     self.rules_list = random.choices(self.rules, weights = [i.desirability() for i in self.rules], k=num_rules)
     # Use rules
-    # loop until we have 12 notes
-    while len(self.notes) < 12:
+    # loop until we have MELODY_LEN notes
+    while len(self.notes) < MELODY_LEN:
       # generate a random note between 0 and 108
       new_note = random.randint(0,108)
       

@@ -2,6 +2,8 @@
 # Date: 6/18/2021
 # Description: A list of rule functions
 
+from var_defs import *
+
 # Rules taken form illiac suite
 def rule1 (new_note, melody, dflag=False):
   # the octave rule
@@ -33,6 +35,8 @@ def rule6 (new_note, melody, dflag=False):
   return (len(melody) < 2 or not (new_note == melody[-2] == melody[-1]))
 
 # last note must be same as first
-# def rule7 (new_note, melody, dflag=False):
-#   # 
-#   return (new_note == melody[0] || len(melody))
+def rule7 (new_note, melody, dflag=False):
+  if (dflag): print("last note must be same as first")
+  return ( len(melody) < (MELODY_LEN - 1) or new_note == melody[0] )
+
+# 
