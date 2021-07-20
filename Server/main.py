@@ -4,6 +4,7 @@ import sys
 from json import dumps
 
 from melody_t import *
+from var_defs import *
 
 class CORSRequestHandler (SimpleHTTPRequestHandler):
     def end_headers (self):
@@ -45,7 +46,7 @@ class CORSRequestHandler (SimpleHTTPRequestHandler):
         print(melodyname, "was swiped", ("right" if swiperesult else "left"))
 
         # Append result of request to file
-        f = open("swipedata.txt", "a")
+        f = open(DATA_SWIPEDATA, "a")
         f.write(""+melodyname+":"+str(swiperesult)+"\n")
         f.close()
 

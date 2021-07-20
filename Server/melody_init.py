@@ -21,12 +21,12 @@ for i in range(0, stop-start):
     midi_file = mai.make_music(my_melody, pgm=1, format='MIDI')\
                 .write('melody' + str(melody_list[i].index) + '.mid')
 # Store Melody list to data file
-pickle_out = open("melodies.dat", "wb")
+pickle_out = open(DATA_MELOS_DAT, "wb")
 pickle.dump(melody_list, pickle_out)
 pickle_out.close()
 
 # Store Rules list to data file
-pickle_out = open("rules.dat", "wb")
+pickle_out = open(DATA_RULES_DAT, "wb")
 pickle.dump(rules, pickle_out)
 pickle_out.close()
 

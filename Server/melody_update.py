@@ -5,19 +5,19 @@ import pickle
 import mai # for writing lists to midi files. In the future I can use pretty_midi for this 
 
 # Load melodies list
-pickle_in = open("melodies.dat", "rb")
+pickle_in = open(DATA_MELOS_DAT, "rb")
 melody_list = pickle.load(pickle_in)
 pickle_in.close()
 
 # Load rules list
-pickle_in = open("rules.dat", "rb")
+pickle_in = open(DATA_RULES_DAT, "rb")
 rules = pickle.load(pickle_in)
 pickle_in.close()
 
 
 
 # Load swipe data
-filename = "swipedata.txt"
+filename = DATA_SWIPEDATA
 with open(filename) as swipedata:
     for line in swipedata:
         # input santization?
@@ -54,6 +54,11 @@ pickle_out = open(SCORE_DUMP_DAT, "wb")
 pickle.dump(rules_l_series, pickle_out)
 pickle_out.close()
 
+# Store Rules list to data file
+pickle_out = open(DATA_RULES_DAT, "wb")
+pickle.dump(rules, pickle_out)
+pickle_out.close()
+
 # Generate new set of melodies
 for melody in melody_list:
     melody.generate_notes()
@@ -62,6 +67,6 @@ for melody in melody_list:
                 .write('melody' + str(melody.index) + '.mid')
 
 # Pickle melody list
-pickle_out = open("melodies.dat", "wb")
+pickle_out = open(DATA_MELOS_DAT, "wb")
 pickle.dump(melody_list, pickle_out)
 pickle_out.close()
