@@ -12,11 +12,11 @@ class Rule:
   def desirability(self):
     return (self.likes / self.dislikes)
   def leftswipe(self, dflag=False):
-    self.likes += 1
+    self.dislikes += 1
     if dflag:
       print(f"Rule: {self}")
   def rghtswipe(self, dflag=False):
-    self.dislikes += 1
+    self.likes += 1
     if dflag:
       print(f"Rule: {self}")
   def __str__(self):
@@ -32,12 +32,20 @@ class Rules:
             Rule(rule5),
             Rule(rule6),
             Rule(rule7)]
+
   # Function for dumping rules to a file
   def dump_rules(self, filename):
     for i in range(0,len(self.rules)):
       f = open(filename, "a")
       f.write(f"Rule{i}: {self.rules[i]}\n")
       f.close()
+  
+  # Prints all
+  def print_all(self):
+      for i in range(0, len(self.rules)):
+        print (f"Rule{i} (\n\t", end="")
+        self.rules[i].function(0,[], True)
+        print (f"\t{self.rules[i]}\n)\n")
 
 # Define a Melody Object
 class Melody:
@@ -48,24 +56,33 @@ class Melody:
     self.midi_path = ""
     self.rules = rules_super
 
+  # Prints just the rules in this melody instance
   def print_rules(self, message="", and_desirability=False): # message added to help debug
-    for rule in self.rules_list:
-      print("rule:")
-      rule.function(0,[], True)
+    for i in range(0, len(self.rules)):
+      print(f"rule{i}:")
+      self.rules[i].function(0,[], True)
       print(message)
       if and_desirability:
-        print(f"has desirability: {rule.desirability()}")
+        print(f"has desirability: {self.rules[i].desirability()}")
+  
+  # Prints all the rules in superset
+  def print_superset(self):
+    for i in range(0, len(self.rules)):
+      print (f"Rule{i} (\n\t", end="")
+      self.rules[i].function(0,[], True)
+      print (f"\t{self.rules[i]}\n)\n")
 
   def generate_notes(self) :
     # Choose some rules
+    random.seed(RANDOM_SEED)
     num_rules = random.randint(3,5)
     self.rules_list = []
     self.rules_list = random.choices(self.rules, weights = [i.desirability() for i in self.rules], k=num_rules)
     # Use rules
     # loop until we have MELODY_LEN notes
     while len(self.notes) < MELODY_LEN:
-      # generate a random note between 0 and 108
-      new_note = random.randint(0,108)
+      # generate a random note between min and max
+      new_note = random.randint(NOTE_RGE_MIN,NOTE_RGE_MAX)
       
       # test note with all rules in rules_list
       note_results = [rule.function(new_note, self.notes) for rule in self.rules_list]

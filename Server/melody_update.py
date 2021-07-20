@@ -1,4 +1,5 @@
 from melody_t import *
+from var_defs import *
 import re # for regular expressions
 import pickle
 import mai # for writing lists to midi files. In the future I can use pretty_midi for this 
@@ -38,9 +39,20 @@ with open(filename, 'r+') as f:
 
 # Dump desirability scores to score_dump.txt
 for i in range(0,len(melody_list[0].rules)):
-    f = open("score_dump.txt", "a")
+    f = open(SCORE_DUMP_TXT, "a")
     f.write(f"Rule{i}: {melody_list[0].rules[i]}\n")
     f.close()
+
+# load list of rules lists from file
+pickle_in = open(SCORE_DUMP_DAT, "rb")
+rules_l_series = pickle.load(pickle_in)
+pickle_in.close()
+
+# append and dump list of rules lists back
+rules_l_series += [melody_list[0].rules]
+pickle_out = open(SCORE_DUMP_DAT, "wb")
+pickle.dump(rules_l_series, pickle_out)
+pickle_out.close()
 
 # Generate new set of melodies
 for melody in melody_list:

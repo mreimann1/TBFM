@@ -1,4 +1,5 @@
 from melody_t import *
+from var_defs import *
 import mai # for writing lists to midi files. In the future I can use pretty_midi for this 
 import pickle # for data persistence
 
@@ -30,4 +31,11 @@ pickle.dump(rules, pickle_out)
 pickle_out.close()
 
 # Dump desirability scores to score_dump.txt
-rules.dump_rules("score_dump.txt")
+rules.dump_rules(SCORE_DUMP_TXT)
+
+# append and dump list of rules lists back
+rules_l_series = []
+rules_l_series += [melody_list[0].rules]
+pickle_out = open(SCORE_DUMP_DAT, "wb")
+pickle.dump(rules_l_series, pickle_out)
+pickle_out.close()
