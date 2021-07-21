@@ -76,7 +76,7 @@ class Melody:
 
   def generate_notes(self) :
     # Choose some rules
-    random.seed(RANDOM_SEED)
+    # random.seed(RANDOM_SEED) # Commented out because it causes repeats
     num_rules_super = len(self.rules)
     num_rules = random.randint(num_rules_super-3,num_rules_super-1)
     self.rules_list = []
