@@ -31,7 +31,9 @@ class Rules:
             Rule(rule4),
             Rule(rule5),
             Rule(rule6),
-            Rule(rule7)]
+            Rule(rule7),
+            Rule(rule8),
+            Rule(rule9)]
 
   # Function for dumping rules to a file
   def dump_rules(self, filename):
@@ -75,7 +77,8 @@ class Melody:
   def generate_notes(self) :
     # Choose some rules
     random.seed(RANDOM_SEED)
-    num_rules = random.randint(3,5)
+    num_rules_super = len(self.rules)
+    num_rules = random.randint(num_rules_super-3,num_rules_super-1)
     self.rules_list = []
     self.rules_list = random.choices(self.rules, weights = [i.desirability() for i in self.rules], k=num_rules)
     # Use rules
