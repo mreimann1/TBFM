@@ -2,7 +2,7 @@ from melody_t import *
 from var_defs import *
 import re # for regular expressions
 import pickle
-import mai # for writing lists to midi files. In the future I can use pretty_midi for this 
+import music_maker as mai
 
 # Load melodies list
 pickle_in = open(DATA_MELOS_DAT, "rb")
