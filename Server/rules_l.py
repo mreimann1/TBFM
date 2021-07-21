@@ -42,11 +42,11 @@ def rule7 (new_note, melody, dflag=False):
 # note must fit in Minor key based on first note as root
 def rule8 (new_note, melody, dflag=False):
   if (dflag): print("note must fit in minor key based on first note as root")
-  return (((len(my_melody) == 0 ) and (new_note < MAX_1ST_NOTE)) or
-          any(new_note == my_melody[0] + interval for interval in minor_key))
+  return (((len(melody) == 0 ) and (new_note < MAX_1ST_NOTE)) or 
+          ((len(melody) > 0) and any(new_note == melody[0] + interval for interval in MINOR_KEY)))
 
 # note must fit in Major key based on first note as root
 def rule9 (new_note, melody, dflag=False):
   if (dflag): print("note must fit in major key based on first note as root")
-  return (((len(my_melody) == 0 ) and (new_note < MAX_1ST_NOTE)) or
-          any(new_note == my_melody[0] + interval for interval in major_key))
+  return (((len(melody) == 0 ) and (new_note < MAX_1ST_NOTE)) or 
+          ((len(melody) > 0) and any(new_note == melody[0] + interval for interval in MAJOR_KEY)))
