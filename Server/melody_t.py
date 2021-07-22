@@ -76,15 +76,20 @@ class Melody:
 
   def generate_notes(self) :
     # Choose some rules
-    # random.seed(RANDOM_SEED) # Commented out because it causes repeats
     num_rules_super = len(self.rules)
     num_rules = random.randint(num_rules_super-3,num_rules_super-1)
     self.rules_list = []
     self.rules_list = random.choices(self.rules, weights = [i.desirability() for i in self.rules], k=num_rules)
-    # Set notes to empty
-    self.notes = []
+    
     # loop until we have MELODY_LEN notes
+    self.notes = [] # set to empty
+    counter = 0 # if this counter gets to 1000, assume we have rule conflicts (soft logic)
     while len(self.notes) < MELODY_LEN:
+      if (counter > 1000): 
+        self.print_rules()
+        self.notes = [] 
+        counter = 0
+      counter += 1
       # generate a random note between min and max
       new_note = random.randint(NOTE_RGE_MIN,NOTE_RGE_MAX)
       
