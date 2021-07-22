@@ -86,7 +86,7 @@ class Melody:
     counter = 0 # if this counter gets to 1000, assume we have rule conflicts (soft logic)
     while len(self.notes) < MELODY_LEN:
       if (counter > 1000): 
-        self.print_rules()
+        # self.print_rules()
         self.notes = [] 
         counter = 0
       counter += 1
