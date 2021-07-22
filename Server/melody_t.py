@@ -81,7 +81,8 @@ class Melody:
     num_rules = random.randint(num_rules_super-3,num_rules_super-1)
     self.rules_list = []
     self.rules_list = random.choices(self.rules, weights = [i.desirability() for i in self.rules], k=num_rules)
-    # Use rules
+    # Set notes to empty
+    self.notes = []
     # loop until we have MELODY_LEN notes
     while len(self.notes) < MELODY_LEN:
       # generate a random note between min and max
