@@ -4,6 +4,7 @@ import sys
 from json import dumps
 import os
 from shutil import copyfile
+import subprocess
 
 from melody_t import *
 from var_defs import *
@@ -74,7 +75,6 @@ class CORSRequestHandler (SimpleHTTPRequestHandler):
             toFind = "?name="
             index = path.find(toFind)
             username = 'tbfm/' + path[index+len(toFind):] + '/'
-            print(f"setname request received. TODO: make dir: {username}")
             if not os.path.exists(username):
                 os.makedirs(username)
                 # Copy files over
@@ -86,7 +86,7 @@ class CORSRequestHandler (SimpleHTTPRequestHandler):
                 copyfile("var_defs.py", username+"var_defs.py")
                 os.makedirs(username+"/data")
                 os.makedirs(username+"/dumps")
-                # TODO: implement run_init
+                subprocess.run(["bash_scripts/run_init.sh", username])
                 
 
         # TODO: implement run_update
