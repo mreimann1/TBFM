@@ -14,8 +14,6 @@ pickle_in = open(DATA_RULES_DAT, "rb")
 rules = pickle.load(pickle_in)
 pickle_in.close()
 
-
-
 # Load swipe data
 filename = DATA_SWIPEDATA
 with open(filename) as swipedata:
@@ -39,7 +37,7 @@ with open(filename, 'r+') as f:
 
 # Dump desirability scores to score_dump.txt
 for i in range(0,len(melody_list[0].rules)):
-    f = open(SCORE_DUMP_TXT, "a")
+    f = open(SCORE_DUMP_TXT, "a+")
     f.write(f"Rule{i}: {melody_list[0].rules[i]}\n")
     f.close()
 

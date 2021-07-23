@@ -90,17 +90,17 @@ class CORSRequestHandler (SimpleHTTPRequestHandler):
                 
 
         # TODO: implement run_update
-        # path = self.path
-        # toFind = "setname"
-        # index = path.find(toFind)
-        # if (index > 0):
-        #     melodyname = path[1:index]
-        #     toFind = "?name="
-        #     index = path.find(toFind)
-        #     username = 'tbfm' + path[index+len(toFind):]
-        #     print(f"setname request received. TODO: make dir: {username}")
-        #     if not os.path.exists(username):
-        #         os.makedirs(username)
+        path = self.path
+        toFind = "doupdate"
+        index = path.find(toFind)
+        if (index > 0):
+            melodyname = path[1:index]
+            toFind = "?name="
+            index = path.find(toFind)
+            username = 'tbfm/' + path[index+len(toFind):]
+            if os.path.exists(username):
+                subprocess.run(["bash_scripts/run_update.sh", username])
+
 
         response = {}
         response["status"] = "OK" # TODO: send "melody{index} was {sucessfully|unsuccessfully} swiped {left|right}"
