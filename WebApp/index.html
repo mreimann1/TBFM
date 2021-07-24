@@ -86,11 +86,11 @@
     let exp = /^[A-Za-z]+[A-Za-z0-9\s\_]*$/; // At least one letter followed by any number of letters/numbers/spaces
     let result = exp.test(username)
     if (result) {
-      alert ("TODO: Implement handling username...")
       document.querySelector('.bg-modal').style.display = "none";
       document.getElementById("tbfm-head").innerHTML += " - " + username
       set_curr();
       set_next();
+      POST_setname();
     }
     else {
       document.getElementById("name-err").innerHTML = "Name must be at least one letter followed by any number of letters/numbers/spaces"
@@ -99,8 +99,8 @@
 
   const MAX_M_INDEX = 10;
   var melodyIndex = 1;
-  // var melodySourc = "http://localhost:8000/"
-  var melodySourc = "http://sozopol.soe.ucsc.edu:8000/"
+  var melodySourc = "http://localhost:8000/"
+  // var melodySourc = "http://sozopol.soe.ucsc.edu:8000/"
   
   console.log ("currcard: " + currcard + " nextcard: " + nextcard);
   // console.log ("currcard: " + currcard.getElementsByTagName("midi-player") + " nextcard: " + nextcard);
@@ -117,14 +117,12 @@
   
   // Set the current card
   function set_curr() {
-    alert("in set_curr: username: " + username);
     currcard.src = melodySourc + src_dir() + "melody" + melodyIndex + ".mid";
     currcard = document.getElementById("melody-player curr-player");
   }
 
   // Set the next card
   function set_next() {
-    alert("in set_next: username: " + username);
     nextcard.src = melodySourc + src_dir() + "melody" + (1 + melodyIndex) + ".mid";
     nextcard = document.getElementById("melody-player next-player");
   }
@@ -177,6 +175,17 @@
       .catch(error => console.log('error', error));
   }
 
+  function POST_setname () {
+    var requestOptions = {
+      method: 'POST',
+      redirect: 'follow'
+    };
+
+    fetch((melodySourc)+"setname?name="+(username), requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
 
   // Trigger left swipe event
   leftBtn.addEventListener("click", function(){
