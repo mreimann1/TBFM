@@ -9,7 +9,7 @@
 </head>
 <body>
   <header>
-    <h1>TBFM</h1>
+    <h1 id="tbfm-head">TBFM</h1>
   </header>
   <section>
     <div class="cardcontainer list">
@@ -45,6 +45,21 @@
     </ul>
   </section>
 
+  <!-- Modal Section -->
+
+  <div class="bg-modal">
+    <div class="modal-contents">
+      <div class="close">+</div>
+      <form id="name-input" action="">
+        <h4>Please Enter your name:</h4>
+        <input type="text" placeholder="Name">
+        <a onClick="close_form()" href="#" class="button">Submit</a>
+        <br>
+        <b id="name-err"></b>
+      </form>
+    </div>
+  </div>
+
   <footer>
     <p>Integration of Tinderesque demo by Chris Heilmann</p>
   </footer>
@@ -59,25 +74,58 @@
   rghtBtn = document.getElementById("rght-btn");
   currcard = document.getElementById("melody-player curr-player");
   nextcard = document.getElementById("melody-player next-player");
+  nameInput = document.getElementById("name-input");
+  var username = ""
+
+
+  function close_form () {
+    username = nameInput.elements[0].value;
+    console.log("username: " + username)
+
+    // Assert that the name is ok
+    let exp = /^[A-Za-z]+[A-Za-z0-9\s\_]*$/; // At least one letter followed by any number of letters/numbers/spaces
+    let result = exp.test(username)
+    if (result) {
+      alert ("TODO: Implement handling username...")
+      document.querySelector('.bg-modal').style.display = "none";
+      document.getElementById("tbfm-head").innerHTML += " - " + username
+      set_curr();
+      set_next();
+    }
+    else {
+      document.getElementById("name-err").innerHTML = "Name must be at least one letter followed by any number of letters/numbers/spaces"
+    }
+  }
 
   const MAX_M_INDEX = 10;
   var melodyIndex = 1;
-  var melodySourc = "localhost:8000/"
-  // var melodySourc = "http://sozopol.soe.ucsc.edu:8000/"
-  function melody_name (altindex = melodyIndex) {return melodySourc + "melody" + altindex + ".mid"}
+  // var melodySourc = "http://localhost:8000/"
+  var melodySourc = "http://sozopol.soe.ucsc.edu:8000/"
   
   console.log ("currcard: " + currcard + " nextcard: " + nextcard);
   // console.log ("currcard: " + currcard.getElementsByTagName("midi-player") + " nextcard: " + nextcard);
+  
+  // Check for username, return directory
+  function src_dir() {
+    if (username.length > 0) 
+    return ("tbfm/" + username + "/") 
+    else
+    return ""
+  }
 
+  function melody_name (altindex = melodyIndex) {return melodySourc + src_dir() + "melody" + altindex + ".mid"}
+  
   // Set the current card
   function set_curr() {
-    currcard.src = melodySourc + "melody" + melodyIndex + ".mid";
+    alert("in set_curr: username: " + username);
+    currcard.src = melodySourc + src_dir() + "melody" + melodyIndex + ".mid";
     currcard = document.getElementById("melody-player curr-player");
   }
 
   // Set the next card
   function set_next() {
-    nextcard.src = melodySourc + "melody" + (1 + melodyIndex) + ".mid";
+    alert("in set_next: username: " + username);
+    nextcard.src = melodySourc + src_dir() + "melody" + (1 + melodyIndex) + ".mid";
     nextcard = document.getElementById("melody-player next-player");
   }
   
@@ -147,8 +195,6 @@
     // set_curr();
     set_next();
   });
-  set_curr();
-  set_next();
 </script>
 </body>
 </html>
