@@ -42,7 +42,6 @@ class CORSRequestHandler (SimpleHTTPRequestHandler):
         path = self.path
         toFind = ".mid"
         index = path.find(toFind)
-        print(f"index: {index}")
         if (index > 0) :
             melodyname = path[1:index]
             toFind0 = "swiped="
