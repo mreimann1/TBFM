@@ -45,7 +45,7 @@
     </ul>
   </section>
 
-  <!-- Modal Section -->
+  <!-- Modal Name-Input Section -->
 
   <div class="bg-modal">
     <div class="modal-contents">
@@ -57,6 +57,16 @@
         <br>
         <b id="name-err"></b>
       </form>
+    </div>
+  </div>
+
+  <!-- Modal Generate New Melodies Section -->
+  <div class="bg-modal-nm">
+    <div class="modal-contents nm">
+      <div class="close">+</div>
+      <h2>Generate New Melodies</h2>
+      <br>
+      <button onclick="" class="click-here">Click Here</button>
     </div>
   </div>
 
@@ -175,6 +185,7 @@
       .catch(error => console.log('error', error));
   }
 
+  // Call setname API
   function POST_setname () {
     var requestOptions = {
       method: 'POST',
