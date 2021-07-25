@@ -85,6 +85,8 @@ class CORSRequestHandler (SimpleHTTPRequestHandler):
                 copyfile("var_defs.py", username+"var_defs.py")
                 os.makedirs(username+"/data")
                 os.makedirs(username+"/dumps")
+                with open(f"{username}{DATA_SWIPEDATA}", 'a+') as f:
+                    f.write('\n')
                 subprocess.run(["bash_scripts/run_init.sh", username])
                 
 
