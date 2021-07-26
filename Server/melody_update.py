@@ -18,8 +18,10 @@ pickle_in.close()
 filename = DATA_SWIPEDATA
 with open(filename) as swipedata:
     for line in swipedata:
-        # input santization?
+        
+        # Search for a colon, set melodyname to the string before it, response to the string after
         colon_index = line.find(":")
+        if (colon_index < 0) : continue
         melody_name = line[:colon_index]
         response = bool(re.search("True",line[colon_index+1:]))
         melody_index = int(re.search(r'\d+$', melody_name).group())
