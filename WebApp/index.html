@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>TBFM Demo</title>
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" type="text/css" href="resource/tinderesque.css">
+  <link rel="stylesheet" type="text/css" href="resource/tbfm.css">
+</head>
+<body>
+  <header>
+    <h1 id="tbfm-head">TBFM</h1>
+  </header>
+  <section>
+    <div class="cardcontainer list">
+      <ul class="cardlist" id="list-of-cards">
+        <li class="card current">
+          <midi-player id= "melody-player curr-player" src="" sound-font></midi-player>
+          <img src="images/melody_image4.png" alt="">
+        </li> get
+      </ul>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <button id="left-btn" class="but-nope">X</button>
+      <button id="rght-btn" class="but-yay">✔</button>
+      <span id="counter"></span>
+    </div>
+    <ul class="cardlist" id="results">
+    </ul>
+  </section>
+
+  <!-- Modal Name-Input Section -->
+
+  <div class="bg-modal">
+    <div class="modal-contents">
+      <div class="close">+</div>
+      <form id="name-input" action="">
+        <h4>Please Enter your name:</h4>
+        <input type="text" placeholder="Name">
+        <a onClick="close_form();" href="#" class="button">Submit</a>
+        <br>
+        <b id="name-err"></b>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Generate New Melodies Section -->
+  <div class="bg-modal-nm">
+    <div class="modal-contents nm">
+      <div class="close">+</div>
+      <h2>Generate New Melodies</h2>
+      <br>
+      <button onclick="close_nm()" class="click-here">Click Here</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>Integration of Tinderesque demo by Chris Heilmann</p>
+  </footer>
+
+<script src="resource/tinderesque.js"></script>
+<script src="resource/tbfm.js"></script>
+
+<script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.21.0/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.1.0"></script>
+
+<script>
+  leftBtn = document.getElementById("left-btn");
+  rghtBtn = document.getElementById("rght-btn");
+  currcard = document.getElementById("melody-player curr-player");
+  nextcard = document.getElementById("melody-player next-player");
+  nameInput = document.getElementById("name-input");
+  var username = ""
+  
+  
+  const MAX_M_INDEX = 10;
+  var melodyIndex = 1;
+  var melodySourc = "http://localhost:8000/"
+  // var melodySourc = "http://sozopol.soe.ucsc.edu:8000/"
+  
+  // Check for username, return directory
+  function src_dir() {
+    if (username.length > 0) 
+    return ("tbfm/" + username + "/") 
+    else
+    return ""
+  }
+
+  function melody_name (altindex = melodyIndex) {return melodySourc + src_dir() + "melody" + altindex + ".mid"}
+  
+  function close_form () {
+    username = nameInput.elements[0].value;
+    console.log("username: " + username)
+
+    // Assert that the name is ok
+    let exp = /^[A-Za-z]+[A-Za-z0-9\s\_]*$/; // At least one letter followed by any number of letters/numbers/spaces
+    let result = exp.test(username)
+    if (result) {
+      document.querySelector('.bg-modal').style.display = "none";
+      document.getElementById("tbfm-head").innerHTML += " - " + username;
+      num_cards_at_start = document.getElementById("list-of-cards").getElementsByTagName("li").length;
+      for (i=2; i<=MAX_M_INDEX; i++) add_card(melody_name(i)); 
+      set_curr();
+      set_curr(); // I am unsure why it requires this to be called twice
+      POST_setname();
+    }
+    else {
+      document.getElementById("name-err").innerHTML = "Name must be at least one letter followed by any number of letters/numbers/spaces"
+    }
+  }
+
+  console.log ("currcard: " + currcard + " nextcard: " + nextcard);
+  // console.log ("currcard: " + currcard.getElementsByTagName("midi-player") + " nextcard: " + nextcard);
+  
+  
+  // Set the current card
+  function set_curr() {
+    currcard.src = melodySourc + src_dir() + "melody" + melodyIndex + ".mid";
+    currcard = document.getElementById("melody-player curr-player");
+  }
+
+  // Set the next card
+  function set_next() {
+    // for testing purposes I want to see what happens with no next card
+    if (melodyIndex == MAX_M_INDEX) {
+      for (i=1; i<=MAX_M_INDEX; i++) add_card(); 
+      return;
+    }
+
+    // nextcard.src = melodySourc + src_dir() + "melody" + (1 + melodyIndex) + ".mid";
+    nextcard = document.getElementById("melody-player next-player");
+  }
+  
+  // Add a card
+  function add_card(src="") {
+    let cardlist = document.getElementById("list-of-cards");
+    cardlist.innerHTML += `
+    <li class="card next">
+          <midi-player id= "melody-player next-player" src="${src}" sound-font></midi-player>
+          <img src="images/melody_image4.png" alt="">
+    </li>`;
+  }
+
+  // Increments melody index
+  function incrMelodyIndex() {
+    melodyIndex ++;
+    if (melodyIndex > MAX_M_INDEX) {
+      open_nm()
+      melodyIndex = 1;
+    }
+  }
+
+  // Decrements melody index. 
+  function decrMelodyIndex() {
+    melodyIndex --;
+    if (melodyIndex < 1) {
+      melodyIndex = MAX_M_INDEX;
+    }
+  }
+
+  // Call the swipe API
+  function POST_swipe (result) {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "method": "POST"
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch((melodySourc)+"melody"+(melodyIndex)+".mid?swiped="+(result?"true":"false"), requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
+
+  // Call setname API
+  function POST_setname () {
+    var requestOptions = {
+      method: 'POST',
+      redirect: 'follow'
+    };
+
+    fetch((melodySourc)+"setname?name="+(username), requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
+
+  // Call doupdate API
+  function POST_doupdate () {
+    var requestOptions = {
+      method: 'POST',
+      redirect: 'follow'
+    };
+
+  fetch((melodySourc)+"doupdate?name="+(username), requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+  }
+  
+  // Do updat and close modal generate new melodies button
+  function close_nm() {
+    POST_doupdate();  
+    document.querySelector('.bg-modal-nm').style.display = "none";
+  }
+  // Open modal generate new melodies button
+  function open_nm() {
+      document.querySelector('.bg-modal-nm').style.display = "flex";
+  }
+  
+  // Trigger left swipe event
+  leftBtn.addEventListener("click", function(){
+      POST_swipe(false); 
+      incrMelodyIndex();
+      // add_card();
+      // set_curr();
+      set_next();
+  });
+
+  // Trigger right swipe event
+  rghtBtn.addEventListener("click", function(){
+    POST_swipe(true);
+    incrMelodyIndex();
+    // add_card();
+    // set_curr();
+    set_next();
+  });
+</script>
+</body>
+</html>
+
