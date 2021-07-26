@@ -134,7 +134,8 @@
   function set_next() {
     // for testing purposes I want to see what happens with no next card
     if (melodyIndex == MAX_M_INDEX) {
-      for (i=1; i<=MAX_M_INDEX; i++) add_card(); 
+      // for (i=1; i<=MAX_M_INDEX; i++) add_card(); 
+      add_card();
       return;
     }
 
@@ -213,13 +214,22 @@
 
   fetch((melodySourc)+"doupdate?name="+(username), requestOptions)
     .then(response => response.text())
-    .then(result => console.log(result))
+    .then(result => {console.log(result); location.reload();}) // Reload page 
     .catch(error => console.log('error', error));
   }
   
-  // Do updat and close modal generate new melodies button
+  function update_melodies() {
+    // Set the next cards source
+    document.getElementById("melody-player next-player").src = melody_name();
+    // Add the next 9 cards
+    var ul = document.getElementById("list-of-cards");
+    var items = ul.getElementsByTagName("li");
+    for (i=2; i<=MAX_M_INDEX; i++) add_card(melody_name(i)); 
+  }
+  
+  // Do update and close modal generate new melodies button
   function close_nm() {
-    POST_doupdate();  
+    POST_doupdate();
     document.querySelector('.bg-modal-nm').style.display = "none";
   }
   // Open modal generate new melodies button
@@ -231,8 +241,6 @@
   leftBtn.addEventListener("click", function(){
       POST_swipe(false); 
       incrMelodyIndex();
-      // add_card();
-      // set_curr();
       set_next();
   });
 
@@ -240,8 +248,6 @@
   rghtBtn.addEventListener("click", function(){
     POST_swipe(true);
     incrMelodyIndex();
-    // add_card();
-    // set_curr();
     set_next();
   });
 </script>
