@@ -2,6 +2,7 @@
 import random
 from rules_l import *
 from var_defs import *
+import numpy as np
 
 # Rule Object
 class Rule:
@@ -79,7 +80,9 @@ class Melody:
     num_rules_super = len(self.rules)
     num_rules = random.randint(num_rules_super-3,num_rules_super-1)
     self.rules_list = []
-    self.rules_list = random.choices(self.rules, weights = [i.desirability() for i in self.rules], k=num_rules)
+    p = np.array([i.desirability() for i in self.rules])
+    p /= sum(p)
+    self.rules_list = np.random.choice(self.rules, replace=False, p = p, size=num_rules)
     
     # loop until we have MELODY_LEN notes
     self.notes = [] # set to empty
