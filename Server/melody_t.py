@@ -78,7 +78,7 @@ class Melody:
   def generate_notes(self) :
     # Choose some rules
     num_rules_super = len(self.rules)
-    num_rules = random.randint(num_rules_super-3,num_rules_super-1)
+    num_rules = int(num_rules_super / 2) # random.randint(num_rules_super-3,num_rules_super-1) # Half the set of rules should be chosen
     self.rules_list = []
     p = np.array([i.desirability() for i in self.rules])
     p /= sum(p)
