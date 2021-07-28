@@ -101,7 +101,8 @@
   
   function close_form () {
     username = nameInput.elements[0].value;
-    console.log("username: " + username)
+    username = username.replace(/ /g, "_"); // change all spaces to underscores
+    console.log("username: " + username);
 
     // Assert that the name is ok
     let exp = /^[A-Za-z]+[A-Za-z0-9\s\_]*$/; // At least one letter followed by any number of letters/numbers/spaces
