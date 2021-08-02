@@ -15,8 +15,7 @@ rules = pickle.load(pickle_in)
 pickle_in.close()
 
 # Load swipe data
-filename = DATA_SWIPEDATA
-with open(filename) as swipedata:
+with open(DATA_SWIPEDATA) as swipedata:
     for line in swipedata:
         
         # Search for a colon, set melodyname to the string before it, response to the string after
@@ -33,9 +32,19 @@ with open(filename) as swipedata:
             print(f"passed on line: {line}")
             pass # ignore bad indices and more
 
+# Append swipedata to cache
+# Open first file in append mode and second file in read mode
+cache_file = open(SWIP_CACHE_TXT, 'a+')
+dump_file = open(DATA_SWIPEDATA, 'r+')
+ 
+# Append the contents of the second file to the first file
+cache_file.write(dump_file.read())
+
 # Clear the swipedata
-with open(filename, 'r+') as f:
-    f.truncate(0)
+dump_file.truncate(0)
+
+cache_file.close()
+dump_file.close()
 
 # Dump desirability scores to score_dump.txt
 for i in range(0,len(melody_list[0].rules)):

@@ -13,6 +13,7 @@ MAJOR_KEY = [-12, -10,-8,-7,-5,-3,-1, 0,2,4,5,7,9,11, 12,14,16,17,19,21,23, 24]
 DATA_RULES_DAT = "./data/rules.dat"
 DATA_MELOS_DAT = "./data/melodies.dat"
 DATA_SWIPEDATA = "./data/swipedata.txt"
+SWIP_CACHE_TXT = "./data/swipedata_cache.txt"
 
 # score dump filename
 SCORE_DUMP_TXT = "./dumps/score_dump.txt"
