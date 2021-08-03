@@ -30,4 +30,3 @@ GEN_SIZE = 10
 
 # Tabularized data headers
 PRE_USERNAME_HEADER = ["INDEX", "LIKED", "DISLIKED"] + [f"RULE{i}" for i in range (1, 10)]
-POST_USERNAME_HEADER = ""
