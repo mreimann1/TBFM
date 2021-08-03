@@ -71,7 +71,7 @@ with open(DATA_SWIPEDATA) as swipedata:
 # TODO: Implement writing the above 4 items as tsv
 file_exists = os.path.isfile(SWIPE_DATA_TSV)
 
-with open(SWIPE_DATA_TSV, "w+") as tsv_out: 
+with open(SWIPE_DATA_TSV, "a+") as tsv_out: 
     if not file_exists:
         tsv_out.write("\t".join(header) + "\n")
     for row in to_write:
