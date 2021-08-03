@@ -16,7 +16,7 @@ DATA_SWIPEDATA = "./data/swipedata.txt"
 SWIP_CACHE_TXT = "./data/swipedata_cache.txt"
 
 # Tabularized 
-SWIPE_DATA_TSV = "./tsv_data/tabularized_swipedata.tsv" 
+SWIPE_DATA_TSV = "./data/tabularized_swipedata.tsv" 
 
 # score dump filename
 SCORE_DUMP_TXT = "./dumps/score_dump.txt"
@@ -26,4 +26,8 @@ SCORE_DUMP_DAT = "./dumps/score_dump.dat"
 RANDOM_SEED = 4
 
 # Number of melodies in a generation
-GEN_SIZE = 9
+GEN_SIZE = 10
+
+# Tabularized data headers
+PRE_USERNAME_HEADER = ["INDEX", "LIKED", "DISLIKED"] + [f"RULE{i}" for i in range (1, 10)]
+POST_USERNAME_HEADER = ""

@@ -1,6 +1,8 @@
 from melody_t import *
 from var_defs import *
 import re # for regular expressions
+import csv
+import os
 import pickle
 import music_maker as mai
 
@@ -27,10 +29,9 @@ with open(DATA_SWIPEDATA) as swipedata:
 
         # Try to swipe the melody, passing on exceptions
         try:
-            melody_list[melody_index].handle_response(response)
-        except Exception:
-            print(f"passed on line: {line}")
-            pass # ignore bad indices and more
+            melody_list[melody_index-1].handle_response(response)
+        except Exception as e:
+            print(f"passed on line: {line} with exception: {e}")
 
 # Append swipedata to cache
 # Open first file in append mode and second file in read mode
@@ -39,6 +40,50 @@ dump_file = open(DATA_SWIPEDATA, 'r+')
  
 # Append the contents of the second file to the first file
 cache_file.write(dump_file.read())
+
+to_write = []
+# Implement solution B.i for attribute tabularization design
+with open(DATA_SWIPEDATA) as swipedata:
+    header = PRE_USERNAME_HEADER
+    for line in swipedata:
+        
+        # Search for a colon, set melodyname to the string before it, response to the string after
+        colon_index = line.find(":")
+        if (colon_index < 0) : continue
+        melody_name = line[:colon_index]
+        response = bool(re.search("True",line[colon_index+1:]))
+        melody_index = int(re.search(r'\d+$', melody_name).group())
+
+        # Try to swipe the melody, passing on exceptions
+        try:
+            # melody_list[melody_index].handle_response(response)
+            # Instead of handling response, append a line to the tsv
+            row = [str(melody_index), str(response), str(not response)]
+            for i in range (0, len(melody_list[melody_index].rules)):
+                row.append(f"{melody_list[melody_index].rules[i] in melody_list[melody_index].rules_list}")
+            to_write += [row]
+        except Exception as e:
+            print(e)
+
+
+
+
+# TODO: Implement writing the above 4 items as tsv
+file_exists = os.path.isfile(SWIPE_DATA_TSV)
+
+with open(SWIPE_DATA_TSV, "w+") as tsv_out: 
+    if not file_exists:
+        tsv_out.write("\t".join(header) + "\n")
+    for row in to_write:
+        tsv_out.write("\t".join(map(str, row)) + "\n")
+
+
+
+
+
+
+
+
 
 # Clear the swipedata
 dump_file.truncate(0)
