@@ -48,7 +48,7 @@ def main(paths):
                 row_.insert(0, generation)
 
                 # Username
-                username = path.split('/')[2]
+                username = path.split('/')[-3]
                 row_.insert(0,username)
                 
                 to_write += [row_]
