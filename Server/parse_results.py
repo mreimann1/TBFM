@@ -7,21 +7,19 @@ Pull out all the results from various users into a single file.
 import pickle
 import sys
 import csv
-
-# HACK
-# sys.path.append('/soe/msreiman/Server')
 import melody_t
 
 RESULT_TSV = "./data/aggregated_swipedata.tsv"
 
 def main(paths):
     rows = []
-
+    to_write = []
+    header_written = False
     for path in paths:
         print("Loading tsv file: %s" % (path))
         row = [path]
 
-        to_write = []
+        
         with open(path) as tsv_file:
 
             # Read the lines out to screen
@@ -29,9 +27,9 @@ def main(paths):
             
             # Copy header and append to it
             header = ["USER", "GENERATION"] + tsv_in.__next__()
-            to_write +=  [header]
-            print(f"to_write: {to_write}")
-            
+            if not header_written: to_write += [header]
+            header_written = True
+
             # Calculate generation
             generation = 1
             highest_rule_found = 0
@@ -42,7 +40,6 @@ def main(paths):
                 
                 # Generation
                 rule_found = int(row[0])
-                print (rule_found)
                 if rule_found <= highest_rule_found : generation += 1
                 highest_rule_found = rule_found
                 row_.insert(0, generation)
@@ -52,10 +49,6 @@ def main(paths):
                 row_.insert(0,username)
                 
                 to_write += [row_]
-
-            print("printing to_write:\n")
-            for row in to_write:
-                print(row)
 
     with open(RESULT_TSV, "a+") as tsv_out: 
         for row in to_write:
