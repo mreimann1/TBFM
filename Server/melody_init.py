@@ -4,7 +4,7 @@ import music_maker as mai
 import pickle # for data persistence
 
 start = 1 # Start melody index at 1
-stop = start + 10 # Only make 10 melodies
+stop = start + GEN_SIZE
 melody_list = []
 
 # Create a rules list instance
