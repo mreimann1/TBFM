@@ -26,7 +26,7 @@ SCORE_DUMP_DAT = "./dumps/score_dump.dat"
 RANDOM_SEED = 4
 
 # Number of melodies in a generation
-GEN_SIZE = 10
+GEN_SIZE = 5
 
 # Tabularized data headers
 PRE_USERNAME_HEADER = ["INDEX", "LIKED", "DISLIKED"] + [f"RULE{i}" for i in range (1, 10)]
