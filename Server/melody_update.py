@@ -52,13 +52,11 @@ with open(DATA_SWIPEDATA) as swipedata:
         if (colon_index < 0) : continue
         melody_name = line[:colon_index]
         response = bool(re.search("True",line[colon_index+1:]))
-        melody_index = int(re.search(r'\d+$', melody_name).group())
+        melody_index = int(re.search(r'\d+$', melody_name).group()) -1 
 
-        # Try to swipe the melody, passing on exceptions
+        # Try to append a line to the tsv
         try:
-            # melody_list[melody_index].handle_response(response)
-            # Instead of handling response, append a line to the tsv
-            row = [str(melody_index), str(response), str(not response)]
+            row = [str(melody_index+1), str(response), str(not response)]
             for i in range (0, len(melody_list[melody_index].rules)):
                 row.append(f"{melody_list[melody_index].rules[i] in melody_list[melody_index].rules_list}")
             to_write += [row]
@@ -75,6 +73,7 @@ with open(SWIPE_DATA_TSV, "a+") as tsv_out:
     if not file_exists:
         tsv_out.write("\t".join(header) + "\n")
     for row in to_write:
+        print ("row: " , row)
         tsv_out.write("\t".join(map(str, row)) + "\n")
 
 
